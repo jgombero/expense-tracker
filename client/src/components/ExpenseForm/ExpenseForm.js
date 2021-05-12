@@ -6,9 +6,45 @@ import { defaultState, categories } from "./constants/constants";
 const ExpenseForm = () => {
   const [state, setState] = useState(defaultState);
 
-  const onSubmitHandler = (event) => {};
+  const [{ loading, error }, submitForm] = useAxios(
+    {
+      url: "http://localhost:8000/expenses/add",
+      method: "POST",
+    },
+    {
+      manual: true,
+    }
+  );
 
-  const onChangeHandler = (key, event) => {};
+  const resetState = (defaultState) => {
+    setState(defaultState);
+  };
+
+  const onChangeHandler = (key, event) => {
+    setState({ ...state, [key]: event.target.value });
+  };
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+
+    const expenseData = {
+      name: state.name,
+      cost: state.cost,
+      category: state.category,
+    };
+
+    submitForm({ data: { ...expenseData } }).then((res) => {
+      resetState(defaultState);
+    });
+  };
+
+  if (loading) {
+    // Show loading indicator
+  }
+
+  if (error) {
+    // Show the user a useful error message
+  }
 
   return (
     <>
@@ -34,6 +70,7 @@ const ExpenseForm = () => {
                 type="number"
                 placholder={0}
                 min={0.01}
+                step={0.01}
                 value={state.cost}
                 onChange={(event) => onChangeHandler("cost", event)}
               />
@@ -41,7 +78,7 @@ const ExpenseForm = () => {
           </Form.Row>
           <Form.Label>Category</Form.Label>
           <Form.Row>
-            <Form.Group as={Col} md="2" controlId="formGridCategory">
+            <Form.Group as={Col} md="4" controlId="formGridCategory">
               <Form.Control
                 as="select"
                 value={state.category}
