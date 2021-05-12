@@ -3,6 +3,7 @@ import useAxios from "axios-hooks";
 import { Container, Form, Col, Button } from "react-bootstrap";
 import { defaultState, categories, title, subtitle } from "./constants/constants";
 import Header from "../Header/Header";
+import Asterisk from "./Asterisk";
 
 const ExpenseForm = () => {
   const [state, setState] = useState(defaultState);
@@ -52,7 +53,10 @@ const ExpenseForm = () => {
       <Header title={title} subtitle={subtitle} />
       <Container>
         <Form onSubmit={(event) => onSubmitHandler(event)}>
-          <Form.Label>Name</Form.Label>
+          <Form.Label>
+            Name
+            <Asterisk />
+          </Form.Label>
           <Form.Row>
             <Form.Group as={Col} md="4" controlId="formGridName">
               <Form.Control
@@ -64,7 +68,10 @@ const ExpenseForm = () => {
               />
             </Form.Group>
           </Form.Row>
-          <Form.Label>Cost</Form.Label>
+          <Form.Label>
+            Cost
+            <Asterisk />
+          </Form.Label>
           <Form.Row>
             <Form.Group as={Col} md="4" controlId="formGridCost">
               <Form.Control
@@ -78,7 +85,10 @@ const ExpenseForm = () => {
               />
             </Form.Group>
           </Form.Row>
-          <Form.Label>Category</Form.Label>
+          <Form.Label>
+            Category
+            <Asterisk />
+          </Form.Label>
           <Form.Row>
             <Form.Group as={Col} md="4" controlId="formGridCategory">
               <Form.Control
@@ -93,6 +103,9 @@ const ExpenseForm = () => {
             </Form.Group>
           </Form.Row>
           <Button type="submit">Submit</Button>
+          <Form.Text className="text-muted">
+            All fields marked with <Asterisk /> are required
+          </Form.Text>
         </Form>
       </Container>
     </>
