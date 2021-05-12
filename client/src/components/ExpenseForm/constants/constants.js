@@ -26,3 +26,7 @@ export const categories = [
 export const title = "Expense Form";
 
 export const subtitle = "Please enter your expense information.";
+
+export const modalTitle = "Submission Successful!";
+
+export const modalSubtext = "Spend that money!";
