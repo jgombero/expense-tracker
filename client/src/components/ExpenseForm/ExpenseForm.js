@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import useAxios from "axios-hooks";
 import { Container, Form, Col, Button } from "react-bootstrap";
-import { defaultState, categories, title, subtitle } from "./constants/constants";
+import {
+  defaultState,
+  categories,
+  title,
+  subtitle,
+  modalTitle,
+  modalSubtext,
+} from "./constants/constants";
 import Header from "../Header/Header";
 import Asterisk from "./Asterisk";
+import CustomModal from "./CustomModal";
 
 const ExpenseForm = () => {
   const [state, setState] = useState(defaultState);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const [{ loading, error }, submitForm] = useAxios(
     {
@@ -17,6 +26,10 @@ const ExpenseForm = () => {
       manual: true,
     }
   );
+
+  const handleCloseSuccessModal = () => setShowSuccessModal(false);
+
+  const handleShowSuccessModal = () => setShowSuccessModal(true);
 
   const resetState = (defaultState) => {
     setState(defaultState);
@@ -36,6 +49,7 @@ const ExpenseForm = () => {
     };
 
     submitForm({ data: { ...expenseData } }).then((res) => {
+      handleShowSuccessModal();
       resetState(defaultState);
     });
   };
@@ -107,6 +121,12 @@ const ExpenseForm = () => {
             All fields marked with <Asterisk /> are required
           </Form.Text>
         </Form>
+        <CustomModal
+          title={modalTitle}
+          subtext={modalSubtext}
+          handleClose={handleCloseSuccessModal}
+          show={showSuccessModal}
+        />
       </Container>
     </>
   );
