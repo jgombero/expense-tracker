@@ -22,9 +22,14 @@ const ExpenseData = () => {
 
   const handleDelete = (event, rowData) => {
     const id = rowData._id;
-    deleteExpense({
-      url: `http://localhost:8000/expenses/delete/${id}`,
-    });
+    // eslint-disable-next-line no-restricted-globals
+    const confirmDelete = confirm(`Are you sure you want to delete ${rowData.name}?`);
+
+    if (confirmDelete) {
+      deleteExpense({
+        url: `http://localhost:8000/expenses/delete/${id}`,
+      });
+    }
     refetch();
   };
 
