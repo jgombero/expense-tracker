@@ -22,3 +22,7 @@ export const categories = [
   "Utilities",
   "Other",
 ];
+
+export const title = "Expense Form";
+
+export const subtitle = "Please enter your expense information.";
