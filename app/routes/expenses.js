@@ -6,3 +6,14 @@ router.route("/").get((req, res) => {
     .then((expenses) => res.json(expenses))
     .catch((e) => res.status(500).json(`Error: ${e}`));
 });
+
+router.route("/add").post((req, res) => {
+  const { name, cost, category } = req.body;
+
+  const newEntry = new Expense({ name, cost, category });
+
+  newEntry
+    .save()
+    .then(() => res.json("Entry added!"))
+    .catch((e) => res.status(500).json(`Error: ${e}`));
+});
