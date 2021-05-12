@@ -4,21 +4,21 @@ import { Container } from "react-bootstrap";
 import MaterialTable from "material-table";
 import { tableIcons, columns, title, subtitle } from "./constants/constants";
 import Header from "../Header/Header";
+import Spinner from "../CustomSpinner/CustomSpinner";
 
 const ExpenseData = () => {
   const [{ data: getData, loading: getLoading, error: getError }, refetch] = useAxios(
     "http://localhost:8000/expenses"
   );
 
-  const [{ data: deleteData, loading: deleteLoading, error: deleteError }, deleteExpense] =
-    useAxios(
-      {
-        method: "DELETE",
-      },
-      {
-        manual: true,
-      }
-    );
+  const [{ loading: deleteLoading, error: deleteError }, deleteExpense] = useAxios(
+    {
+      method: "DELETE",
+    },
+    {
+      manual: true,
+    }
+  );
 
   const handleDelete = (event, rowData) => {
     const id = rowData._id;
@@ -35,6 +35,7 @@ const ExpenseData = () => {
 
   if (getLoading || deleteLoading) {
     // Show loading indicator
+    return <Spinner />;
   }
 
   if (getError || deleteError) {

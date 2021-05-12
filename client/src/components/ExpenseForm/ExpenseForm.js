@@ -12,6 +12,7 @@ import {
 import Header from "../Header/Header";
 import Asterisk from "./Asterisk";
 import CustomModal from "./CustomModal";
+import Spinner from "../CustomSpinner/CustomSpinner";
 
 const ExpenseForm = () => {
   const [state, setState] = useState(defaultState);
@@ -56,6 +57,7 @@ const ExpenseForm = () => {
 
   if (loading) {
     // Show loading indicator
+    return <Spinner />;
   }
 
   if (error) {
