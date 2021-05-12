@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const expensesRouter = require("./routes/expenses");
 
 require("dotenv").config();
 
@@ -16,6 +17,8 @@ connection.once("open", () => {
 
 app.use(cors());
 app.use(express.json());
+
+app.use("/expenses", expensesRouter);
 
 app.listen(port, () => {
   console.log(`🚀 Server is running on port: ${port} 🚀`);
