@@ -1,9 +1,3 @@
-export const defaultState = {
-  name: "",
-  cost: 0,
-  category: "",
-};
-
 export const categories = [
   "Clothing",
   "Debt",
@@ -22,6 +16,12 @@ export const categories = [
   "Utilities",
   "Other",
 ];
+
+export const defaultState = {
+  name: "",
+  cost: 0,
+  category: categories[0],
+};
 
 export const title = "Expense Form";
 
