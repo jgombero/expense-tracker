@@ -37,7 +37,7 @@ export const tableIcons = {
 
 export const columns = [
   { title: "Name", field: "name" },
-  { title: "Cost", field: "cost" },
+  { title: "Cost ($)", field: "cost" },
   { title: "Category", field: "category" },
 ];
 
