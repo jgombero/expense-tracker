@@ -7,7 +7,7 @@ const Header = ({ title, subtitle }) => {
       <Container>
         <header>
           <h1 className="title">{title}</h1>
-          <h5 className="subtitle">{subtitle}</h5>
+          <h5 className="title">{subtitle}</h5>
         </header>
       </Container>
     </Jumbotron>
