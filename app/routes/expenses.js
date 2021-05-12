@@ -18,4 +18,10 @@ router.route("/add").post((req, res) => {
     .catch((e) => res.status(500).json(`Error: ${e}`));
 });
 
+router.route("/delete/:id").delete((req, res) => {
+  Expense.findOneAndDelete({ _id: req.params.id })
+    .then(() => res.json("Entry deleted!"))
+    .catch((e) => res.status(500).json(`Error: ${e}`));
+});
+
 module.exports = router;
