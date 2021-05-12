@@ -16,6 +16,7 @@ import Spinner from "../CustomSpinner/CustomSpinner";
 
 const ExpenseForm = () => {
   const [state, setState] = useState(defaultState);
+  const [isLoading, setIsLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const [{ loading, error }, submitForm] = useAxios(
@@ -41,6 +42,7 @@ const ExpenseForm = () => {
   };
 
   const onSubmitHandler = (event) => {
+    setIsLoading(true);
     event.preventDefault();
 
     const expenseData = {
@@ -49,14 +51,17 @@ const ExpenseForm = () => {
       category: state.category,
     };
 
-    submitForm({ data: { ...expenseData } }).then((res) => {
-      handleShowSuccessModal();
-      resetState(defaultState);
-    });
+    // SetTimeout used here just to show off the spinner :)
+    setTimeout(() => {
+      submitForm({ data: { ...expenseData } }).then(() => {
+        handleShowSuccessModal();
+        resetState(defaultState);
+        setIsLoading(false);
+      });
+    }, 1000);
   };
 
-  if (loading) {
-    // Show loading indicator
+  if (loading || isLoading) {
     return <Spinner />;
   }
 
