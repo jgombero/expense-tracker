@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import useAxios from "axios-hooks";
 import { Container, Form, Col, Button } from "react-bootstrap";
-import { defaultState, categories } from "./constants/constants";
+import { defaultState, categories, title, subtitle } from "./constants/constants";
+import Header from "../Header/Header";
 
 const ExpenseForm = () => {
   const [state, setState] = useState(defaultState);
@@ -48,6 +49,7 @@ const ExpenseForm = () => {
 
   return (
     <>
+      <Header title={title} subtitle={subtitle} />
       <Container>
         <Form onSubmit={(event) => onSubmitHandler(event)}>
           <Form.Label>Name</Form.Label>
