@@ -1,10 +1,10 @@
 import React from "react";
-import { spinnerURL } from "./constants/constants";
+import spinnerImage from "../../images/coin-image.png";
 
 const Spinner = () => {
   return (
     <div className="spinner-container">
-      <img src={spinnerURL} alt="loading" className="spinner" />
+      <img src={spinnerImage} alt="loading" className="spinner" />
     </div>
   );
 };
