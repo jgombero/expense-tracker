@@ -11,10 +11,11 @@ import {
 } from "./constants/constants";
 import Header from "../Header/Header";
 import Asterisk from "./Asterisk";
-import CustomModal from "./CustomModal";
+import CustomModal from "../CustomModal/CustomModal";
 import Spinner from "../CustomSpinner/CustomSpinner";
 
 const ExpenseForm = () => {
+  // --- Hooks --- //
   const [state, setState] = useState(defaultState);
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -29,6 +30,7 @@ const ExpenseForm = () => {
     }
   );
 
+  // --- Helper Functions --- //
   const handleCloseSuccessModal = () => setShowSuccessModal(false);
 
   const handleShowSuccessModal = () => setShowSuccessModal(true);
@@ -111,7 +113,7 @@ const ExpenseForm = () => {
             <Asterisk />
           </Form.Label>
           <Form.Row>
-            <Form.Group as={Col} md="4" controlId="formGridCategory">
+            <Form.Group as={Col} md="5" controlId="formGridCategory">
               <Form.Control
                 as="select"
                 value={state.category}
