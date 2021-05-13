@@ -5,9 +5,13 @@ import MaterialTable from "material-table";
 import { tableIcons, columns, title, subtitle } from "./constants/constants";
 import Header from "../Header/Header";
 import Spinner from "../CustomSpinner/CustomSpinner";
+import CustomModal from "../CustomModal/CustomModal";
 
 const ExpenseData = () => {
+  // --- Hooks --- //
   const [isLoading, setIsLoading] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [state, setState] = useState({ name: "", id: "" });
 
   const [{ data: getData, loading: getLoading, error: getError }, refetch] = useAxios(
     "http://localhost:8000/expenses"
@@ -30,24 +34,29 @@ const ExpenseData = () => {
     }, 1000);
   }, []);
 
-  const handleDelete = (rowData) => {
-    const id = rowData._id;
-    // eslint-disable-next-line no-restricted-globals
-    const confirmDelete = confirm(`Are you sure you want to delete ${rowData.name}?`);
+  // --- Helper Functions --- //
+  const handleCloseSuccessModal = () => setShowSuccessModal(false);
 
-    if (confirmDelete) {
-      setIsLoading(true);
+  const handleShowSuccessModal = () => setShowSuccessModal(true);
 
-      // SetTimeout used here just to show off the spinner :)
-      setTimeout(() => {
-        deleteExpense({
-          url: `http://localhost:8000/expenses/delete/${id}`,
-        }).then(() => {
-          refetch();
-          setIsLoading(false);
-        });
-      }, 1000);
-    }
+  const handleDeleteClick = (rowData) => {
+    setState({ id: rowData._id, name: rowData.name });
+    handleShowSuccessModal();
+  };
+
+  const handleDelete = () => {
+    handleCloseSuccessModal();
+    setIsLoading(true);
+
+    // SetTimeout used here just to show off the spinner :)
+    setTimeout(() => {
+      deleteExpense({
+        url: `http://localhost:8000/expenses/delete/${state.id}`,
+      }).then(() => {
+        refetch();
+        setIsLoading(false);
+      });
+    }, 1000);
   };
 
   if (getLoading || deleteLoading || isLoading) {
@@ -72,11 +81,18 @@ const ExpenseData = () => {
               {
                 icon: tableIcons.Delete,
                 tooltip: "Delete Expense",
-                onClick: (event, rowData) => handleDelete(rowData),
+                onClick: (event, rowData) => handleDeleteClick(rowData),
               },
             ]}
           />
         )}
+        <CustomModal
+          title={`Are you sure you want to delete "${state.name}"?`}
+          subtext={"This action cannot be undone!"}
+          handleClose={handleCloseSuccessModal}
+          show={showSuccessModal}
+          handleConfirm={handleDelete}
+        />
       </Container>
     </>
   );
