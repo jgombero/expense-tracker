@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import useAxios from "axios-hooks";
 import { Container } from "react-bootstrap";
 import MaterialTable from "material-table";
-import { tableIcons, columns, title, subtitle } from "./constants/constants";
+import { tableIcons, columns, title, subtitle, defaultState } from "./constants/constants";
 import Header from "../Header/Header";
 import Spinner from "../CustomSpinner/CustomSpinner";
 import CustomModal from "../CustomModal/CustomModal";
@@ -11,7 +11,7 @@ const ExpenseData = () => {
   // --- Hooks --- //
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [state, setState] = useState({ name: "", id: "" });
+  const [state, setState] = useState(defaultState);
 
   const [{ data: getData, loading: getLoading, error: getError }, refetch] = useAxios(
     "http://localhost:8000/expenses"

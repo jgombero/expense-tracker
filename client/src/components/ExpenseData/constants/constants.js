@@ -44,3 +44,5 @@ export const columns = [
 export const title = "Expense Data";
 
 export const subtitle = "Here's your latest expense data!";
+
+export const defaultState = { id: "", name: "" };
