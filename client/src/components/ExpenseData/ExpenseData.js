@@ -72,7 +72,7 @@ const ExpenseData = () => {
               {
                 icon: tableIcons.Delete,
                 tooltip: "Delete Expense",
-                onClick: (rowData) => handleDelete(rowData),
+                onClick: (event, rowData) => handleDelete(rowData),
               },
             ]}
           />
